@@ -7,7 +7,7 @@ import StarsComponent from '../stars/stars';
   selector: 'auction-product-page',
   styles: ['auction-stars.large {font-size: 24px;}'],
   templateUrl: 'app/components/product-detail/product-detail.html',
-  directives: [ StarsComponent]
+  directives: [ StarsComponent ]
 })
 export default class ProductDetailComponent {
   product: Product;
