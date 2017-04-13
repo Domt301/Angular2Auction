@@ -6,9 +6,9 @@ import {FormControl, FormGroup} from '@angular/forms';
   templateUrl: 'app/components/search/search.html'
 })
 export default class SearchComponent {
-    formModel: FormGroup = new FormGroup({
-      'title': new FormControl(),
-      'price': new FormControl(),
-      'category': new FormControl()
-    });
+  formModel: FormGroup = new FormGroup({
+    'title': new FormControl(),
+    'price': new FormControl(),
+    'category': new FormControl()
+  });
 }
