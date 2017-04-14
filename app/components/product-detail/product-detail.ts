@@ -1,15 +1,14 @@
-import {Component} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {Product, Review, ProductService} from '../../services/product-service';
-import StarsComponent from '../stars/stars';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Product, Review, ProductService } from '../../services/product-service';
 
 @Component({
   selector: 'auction-product-page',
   styles: ['auction-stars.large {font-size: 24px;}'],
-  templateUrl: 'app/components/product-detail/product-detail.html',
-  directives: [ StarsComponent ]
+  templateUrl: 'app/components/product-detail/product-detail.html'
 })
-export default class ProductDetailComponent {
+export default class ProductDetailComponent implements OnInit {
+  productId: number;
   product: Product;
   reviews: Review[];
 
@@ -18,18 +17,18 @@ export default class ProductDetailComponent {
 
   isReviewHidden: boolean = true;
 
-  constructor(route: ActivatedRoute, productService: ProductService) {
+  constructor(private productService: ProductService, route: ActivatedRoute) {
+    this.productId = parseInt(route.snapshot.params['productId']);
+  }
 
-    let prodId: number = parseInt(route.snapshot.params['productId']);
-    this.product = productService.getProductById(prodId);
-
-    this.reviews = productService.getReviewsForProduct(this.product.id);
+  ngOnInit() {
+    this.product = this.productService.getProductById(this.productId);
+    this.reviews = this.productService.getReviewsForProduct(this.product.id);
   }
 
   addReview() {
     let review = new Review(0, this.product.id, new Date(), 'Anonymous',
         this.newRating, this.newComment);
-    console.log("Adding review " + JSON.stringify(review));
     this.reviews = [...this.reviews, review];
     this.product.rating = this.averageRating(this.reviews);
 
